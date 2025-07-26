@@ -10,6 +10,7 @@ interface SignupFormProps {
   currentStep: number;
   totalSteps: number;
   onStepChange: (step: number) => void;
+  onSwitchToSignIn?: () => void;
 }
 
 interface FormData {
@@ -22,7 +23,7 @@ interface FormData {
   role: string;
 }
 
-export function SignupForm({ currentStep, totalSteps, onStepChange }: SignupFormProps) {
+export function SignupForm({ currentStep, totalSteps, onStepChange, onSwitchToSignIn }: SignupFormProps) {
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
@@ -339,6 +340,21 @@ export function SignupForm({ currentStep, totalSteps, onStepChange }: SignupForm
           <a href="#" className="underline hover:text-primary">Terms of Service</a>{' '}
           and{' '}
           <a href="#" className="underline hover:text-primary">Privacy Policy</a>
+        </p>
+
+        <p className="text-xs text-muted-foreground text-center">
+          Already have an account?{' '}
+          {onSwitchToSignIn ? (
+            <button
+              type="button"
+              onClick={onSwitchToSignIn}
+              className="underline hover:text-primary"
+            >
+              Sign in
+            </button>
+          ) : (
+            <span className="underline">Sign in</span>
+          )}
         </p>
       </CardContent>
     </Card>
